@@ -1,0 +1,21 @@
+{% extends "calculator/layout.html" %}
+
+
+{% block body %}
+    <form method="post">
+        {% csrf_token %}
+        <label for="device">Select Device:</label>
+        <select name="device" id="device">
+            {% for device in devices %}
+            <option value="{{ device.id }}">{{ device.name }}</option>
+            {% endfor %}
+        </select>
+        <label for="quantity">Quantity:</label>
+        <input type="number" name="quantity" id="quantity" min="1" required>
+        <button type="submit">Calculate Shipping</button>
+    </form>
+
+    {% if total_price is not None %}
+        <h2>Total Shipping Cost: €{{ total_price }}</h2>
+    {% endif %}
+{% endblock %}
